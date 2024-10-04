@@ -1,16 +1,15 @@
 package com.booking.domain;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "AREA")
-public class Area {
+import java.time.LocalDateTime;
+
+public class Booking {
     @Id
     @GeneratedValue
     private Integer id;
     private String name;
-    private String description;
+    private LocalDateTime bookingStart;
+    private LocalDateTime bookingEnd;
 }

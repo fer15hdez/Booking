@@ -1,16 +1,23 @@
 package com.booking.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "T_EQUIPMENT")
 public class Equipment extends Resource{
     @Id
+    @GeneratedValue
     private Integer id;
     private Integer weight;
     private Integer length;
     private Integer height;
-    private String function;
+    @ManyToMany
+    @JoinTable(
+            name = "equipment_function",
+            joinColumns = {@JoinColumn(name = "equipment_id")},
+            inverseJoinColumns = {@JoinColumn(name = "function_id")}
+    )
+    private List<FunctionType> function;
 }
