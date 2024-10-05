@@ -1,9 +1,8 @@
 package com.booking.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "AREA")
@@ -13,4 +12,6 @@ public class Area {
     private Integer id;
     private String name;
     private String description;
+    @ManyToMany(mappedBy = "areas")
+    private List<Coach> coaches;
 }

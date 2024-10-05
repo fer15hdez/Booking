@@ -12,6 +12,6 @@ public class FunctionType {
     private Integer id;
     private String name;
     private String description;
-    @ManyToMany
+    @ManyToMany(mappedBy = "function")
     private List<Equipment> equipment;
 }

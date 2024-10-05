@@ -1,16 +1,29 @@
 package com.booking.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Entity
-@Table(name = "T_COACH")
+//@Table(name = "T_COACH")
 public class Coach extends Resource {
-    @Id
-    @GeneratedValue
-    private Integer id;
     private String area;
+    @ManyToMany
+    @JoinTable(
+            name = "coach_area",
+            joinColumns = { @JoinColumn(name = "area_id") },
+            inverseJoinColumns = { @JoinColumn(name = "coach_id") }
+    )
+    private List<Area> areas;
 
 }

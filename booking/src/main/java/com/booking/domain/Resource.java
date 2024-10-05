@@ -1,12 +1,20 @@
 package com.booking.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
+//@Entity
+//@Table(name = "T_RESOURCE")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Entity
-@Table(name = "T_RESOURCE")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+//@SuperBuilder(toBuilder = true)
 public class Resource {
     @Id
     @GeneratedValue

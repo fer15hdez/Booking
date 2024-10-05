@@ -1,11 +1,21 @@
 package com.booking.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
 @Entity
-@Table(name = "T_EQUIPMENT")
+//@Table(name = "T_EQUIPMENT")
 public class Equipment extends Resource{
     @Id
     @GeneratedValue
@@ -16,8 +26,8 @@ public class Equipment extends Resource{
     @ManyToMany
     @JoinTable(
             name = "equipment_function",
-            joinColumns = {@JoinColumn(name = "equipment_id")},
-            inverseJoinColumns = {@JoinColumn(name = "function_id")}
+            joinColumns = { @JoinColumn(name = "equipment_id") },
+            inverseJoinColumns = { @JoinColumn(name = "function_id") }
     )
     private List<FunctionType> function;
 }
