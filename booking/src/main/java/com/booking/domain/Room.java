@@ -15,10 +15,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Entity
 //@Table(name = "T_ROOM")
+@PrimaryKeyJoinColumn(name = "resource_id")
 public class Room extends Resource{
-    @Id
-    @GeneratedValue
-    private Integer id;
+
     private Integer width;
     private Integer length;
     @ManyToOne

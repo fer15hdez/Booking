@@ -16,10 +16,9 @@ import java.util.List;
 @SuperBuilder
 @Entity
 //@Table(name = "T_EQUIPMENT")
+@PrimaryKeyJoinColumn(name = "resource_id")
 public class Equipment extends Resource{
-    @Id
-    @GeneratedValue
-    private Integer id;
+
     private Integer weight;
     private Integer length;
     private Integer height;

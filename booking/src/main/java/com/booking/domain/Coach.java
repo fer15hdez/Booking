@@ -16,6 +16,7 @@ import java.util.List;
 @SuperBuilder
 @Entity
 //@Table(name = "T_COACH")
+@PrimaryKeyJoinColumn(name = "resource_id")
 public class Coach extends Resource {
     private String area;
     @ManyToMany
