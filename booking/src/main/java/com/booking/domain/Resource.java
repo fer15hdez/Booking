@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 //@SuperBuilder(toBuilder = true)
-public class Resource {
+abstract public class Resource {
     @Id
     @GeneratedValue
     private Integer id;
