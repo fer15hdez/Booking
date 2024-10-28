@@ -5,6 +5,13 @@ import com.booking.domain.EquipmentDTO;
 import com.booking.domain.EquipmentRepository;
 import com.booking.domain.EquipmentResponseDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipmentService {
@@ -21,5 +28,18 @@ public class EquipmentService {
         Equipment equipment = this.mapper.toEquipment(equipmentDTO);
 
         return this.mapper.toEquipmentResponseDTO(this.repository.save(equipment));
+    }
+
+    public List<EquipmentResponseDTO> allEquipment(){
+        return this.repository.findAll()
+                .stream()
+                .map(mapper::toEquipmentResponseDTO)
+                .collect(Collectors.toList());
+
+    }
+
+    @PostMapping
+    public EquipmentResponseDTO updateEquipment(@RequestBody Equipment e){
+        return this.mapper.toEquipmentResponseDTO(this.repository.save(e));
     }
 }
