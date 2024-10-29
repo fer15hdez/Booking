@@ -38,8 +38,11 @@ public class EquipmentService {
 
     }
 
-    @PostMapping
-    public EquipmentResponseDTO updateEquipment(@RequestBody Equipment e){
+    public EquipmentResponseDTO updateEquipment(Equipment e){
         return this.mapper.toEquipmentResponseDTO(this.repository.save(e));
+    }
+
+    public void deleteEquipment(Integer e){
+        this.repository.deleteById(e);
     }
 }

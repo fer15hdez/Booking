@@ -5,6 +5,7 @@ import com.booking.domain.EquipmentDTO;
 import com.booking.domain.EquipmentResponseDTO;
 import com.booking.service.EquipmentService;
 import org.apache.catalina.LifecycleState;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,12 @@ public class EquipmentController {
     @PutMapping("/update")
     public EquipmentResponseDTO updateEquipment(@RequestBody Equipment equipment){
         return this.service.updateEquipment(equipment);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteEquipment(@PathVariable("id") Integer id){
+        this.service.deleteEquipment(id);
     }
 
 }

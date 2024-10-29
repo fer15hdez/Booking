@@ -18,7 +18,6 @@ import java.util.List;
 //@Table(name = "T_COACH")
 @PrimaryKeyJoinColumn(name = "resource_id")
 public class Coach extends Resource {
-    private String area;
     @ManyToMany
     @JoinTable(
             name = "coach_area",
