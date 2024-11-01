@@ -20,16 +20,21 @@ public class RoomType {
     private String name;
     private String description;
     @OneToMany(
-            mappedBy = "type",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            mappedBy = "type"
+//            cascade = CascadeType.ALL
+//            orphanRemoval = true
     )
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<Room> rooms;
 
-    public RoomType(String name, String description, List<Room> rooms){
+   /* public RoomType(Integer id){
+        this.id = id;
+    }*/
+
+ /*   public RoomType(Integer id, String name, String description, List<Room> rooms){
+        this.id = id;
         this.name = name;
         this.description = description;
         this.rooms = rooms;
-    }
+    }*/
 }

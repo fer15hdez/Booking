@@ -22,6 +22,6 @@ public class Room extends Resource{
     private Integer length;
     @ManyToOne
     @JoinColumn(name = "type_id")
-    @JsonBackReference
+//    @JsonBackReference
     private RoomType type;
 }
