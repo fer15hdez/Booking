@@ -6,6 +6,10 @@ import com.booking.domain.RoomRepository;
 import com.booking.domain.RoomResponseDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 @Service
 public class RoomService {
 
@@ -21,5 +25,20 @@ public class RoomService {
         Room room = this.mapper.toRoom(roomDTO);
 
         return this.mapper.toRoomResponseDTO(this.repository.save(room));
+    }
+
+    public RoomResponseDTO updateRoom(Room room){
+        return  this.mapper.toRoomResponseDTO(this.repository.save(room));
+    }
+
+    public List<RoomResponseDTO> listRoom(){
+        return this.repository.findAll()
+                .stream()
+                .map(mapper::toRoomResponseDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void deleteRoom(Integer id){
+        this.repository.deleteById(id);
     }
 }

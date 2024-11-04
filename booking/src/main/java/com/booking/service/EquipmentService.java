@@ -39,7 +39,7 @@ public class EquipmentService {
         return this.mapper.toEquipmentResponseDTO(this.repository.save(e));
     }
 
-    public void deleteEquipment(Integer e){
-        this.repository.deleteById(e);
+    public void deleteEquipment(Integer id){
+        this.repository.deleteById(id);
     }
 }

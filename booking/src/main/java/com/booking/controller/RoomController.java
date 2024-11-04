@@ -1,12 +1,14 @@
 package com.booking.controller;
 
+import com.booking.domain.Room;
 import com.booking.domain.RoomDTO;
 import com.booking.domain.RoomResponseDTO;
 import com.booking.service.RoomService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jdk.dynalink.linker.LinkerServices;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/rooms")
@@ -21,5 +23,21 @@ public class RoomController {
     @PostMapping
     public RoomResponseDTO createRoom(@RequestBody RoomDTO roomDTO){
         return this.service.createRoom(roomDTO);
+    }
+
+    @PutMapping
+    public RoomResponseDTO updateRoom(@RequestBody Room room){
+        return this.service.updateRoom(room);
+    }
+
+    @GetMapping
+    public List<RoomResponseDTO> listRoom(){
+        return this.service.listRoom();
+    }
+
+    @DeleteMapping("{id}")
+//    @ResponseStatus(HttpStatus.OK)
+    public void deleteRoom(@PathVariable("id") Integer id){
+        this.service.deleteRoom(id);
     }
 }
