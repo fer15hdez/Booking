@@ -35,7 +35,7 @@ public class RoomController {
         return this.service.listRoom();
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
 //    @ResponseStatus(HttpStatus.OK)
     public void deleteRoom(@PathVariable("id") Integer id){
         this.service.deleteRoom(id);

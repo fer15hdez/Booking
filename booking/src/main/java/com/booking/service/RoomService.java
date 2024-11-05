@@ -4,9 +4,12 @@ import com.booking.domain.Room;
 import com.booking.domain.RoomDTO;
 import com.booking.domain.RoomRepository;
 import com.booking.domain.RoomResponseDTO;
+import com.booking.exceptions.DeleteEntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -39,6 +42,10 @@ public class RoomService {
     }
 
     public void deleteRoom(Integer id){
+        this.repository.findById(id)
+                .orElseThrow(
+                        () -> new DeleteEntityNotFoundException("Entity not found with id: " + id)
+                );
         this.repository.deleteById(id);
     }
 }
