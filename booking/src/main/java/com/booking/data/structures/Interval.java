@@ -8,4 +8,8 @@ public class Interval {
         this.start = start;
         this.end = end;
     }
+
+    public String toString(){
+        return "[" + this.start + ", " + this.end + "]";
+    }
 }
