@@ -1,10 +1,19 @@
 package com.booking.domain;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@Entity
 public class Booking {
     @Id
     @GeneratedValue
