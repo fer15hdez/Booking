@@ -2,10 +2,12 @@ package com.booking.data.structures;
 
 import com.booking.domain.Booking;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.time.ZoneOffset;
 import java.util.List;
 
+@Component
 public class BookingTree {
     NodeBooking root;
 

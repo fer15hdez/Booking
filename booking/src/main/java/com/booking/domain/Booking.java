@@ -1,5 +1,6 @@
 package com.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,6 +34,8 @@ public class Booking {
             inverseJoinColumns = { @JoinColumn(name = "booking_id") }
     )
     private List<Customer> customers;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime bookingStart;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime bookingEnd;
 }
