@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 //@SuperBuilder(toBuilder = true)
-abstract public class Resource {
+public class Resource {
     @Id
     @GeneratedValue
     private Integer id;
@@ -27,5 +27,8 @@ abstract public class Resource {
     @ManyToMany(mappedBy = "resource")
     private List<Booking> bookings;
 
+    public Resource(Integer id){
+        this.id = id;
+    }
 
 }

@@ -1,10 +1,14 @@
 package com.booking.data.structures;
 
 import com.booking.domain.Booking;
+import com.booking.error.pojo.ErrorDetails;
+import com.booking.exceptions.OverlapIntervalException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.ZoneOffset;
+import java.util.Date;
 import java.util.List;
 
 @Component
@@ -40,7 +44,7 @@ public class BookingTree {
         }
 
         if (overlap(node.booking, x)) {
-            System.out.println("Overlap with: " + node.booking.getBookingStart() + ", " + node.booking.getBookingEnd());
+            throw new OverlapIntervalException("Overlap with: " + node.booking.getBookingStart() + ", " + node.booking.getBookingEnd());
         }
 
         if (x.getBookingStart().toEpochSecond(ZoneOffset.UTC) < node.booking.getBookingStart().toEpochSecond(ZoneOffset.UTC)) {
@@ -50,6 +54,7 @@ public class BookingTree {
         if (x.getBookingEnd().toEpochSecond(ZoneOffset.UTC) > node.booking.getBookingStart().toEpochSecond(ZoneOffset.UTC)) {
             search(node.right, x);
         }
+
     }
 
     private boolean overlap(Booking i1, Booking i2) {
