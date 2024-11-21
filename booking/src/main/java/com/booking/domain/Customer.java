@@ -24,4 +24,10 @@ public class Customer {
     private String name;
     @ManyToMany(mappedBy = "customers")
     private List<Booking> bookings;
+
+    public Customer(Integer id){
+        this.id = id;
+    }
 }
+
+

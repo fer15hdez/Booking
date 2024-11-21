@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BookingService {
@@ -20,11 +21,16 @@ public class BookingService {
     }
 
     public void createBooking(Booking booking){
-        List<Booking> bookings = this.repository.findAll();
+        List<Booking> bookings = this.repository.findAll()
+                .stream()
+                .limit(100)
+                .collect(Collectors.toList());
         NodeBooking bookingTree = this.bookingTree.buildTree(bookings);
         this.bookingTree.search(bookingTree, booking);
 
         this.repository.save(booking);
+
+        System.out.println(bookings.size());
 
     }
 
