@@ -1,5 +1,6 @@
 package com.booking.domain;
 
+import com.booking.error.IntervalValidation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,4 +39,5 @@ public class Booking {
     private LocalDateTime bookingStart;
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private LocalDateTime bookingEnd;
-}
+
+   }
