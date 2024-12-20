@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 public interface IntervalValidation extends Validator {
 
-    public Boolean isValid(LocalDateTime start, LocalDateTime end);
+    Boolean isValid(LocalDateTime start, LocalDateTime end);
 
 
 }

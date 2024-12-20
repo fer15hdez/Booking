@@ -4,7 +4,6 @@ import com.booking.domain.Booking;
 import com.booking.domain.BookingConfig;
 import com.booking.domain.BookingConfigRepository;
 import com.booking.exceptions.BookingConfigEntityNotFoundException;
-import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

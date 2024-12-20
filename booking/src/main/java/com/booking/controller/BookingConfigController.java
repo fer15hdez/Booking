@@ -2,7 +2,6 @@ package com.booking.controller;
 
 import com.booking.domain.BookingConfig;
 import com.booking.service.BookingConfigService;
-import com.booking.service.BookingService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
