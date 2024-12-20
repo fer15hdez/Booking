@@ -1,7 +1,12 @@
 package com.booking.error;
 
-public interface IntervalValidation {
+import org.springframework.validation.Validator;
 
-    public String minInterval(Integer start, Integer end);
-    public String maxInterval(Integer start, Integer end);
+import java.time.LocalDateTime;
+
+public interface IntervalValidation extends Validator {
+
+    public Boolean isValid(LocalDateTime start, LocalDateTime end);
+
+
 }

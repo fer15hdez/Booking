@@ -2,7 +2,9 @@ package com.booking.error;
 
 import com.booking.error.pojo.ErrorDetails;
 import com.booking.error.pojo.ErrorOverlapInterval;
+import com.booking.exceptions.BookingConfigEntityNotFoundException;
 import com.booking.exceptions.DeleteEntityNotFoundException;
+import com.booking.exceptions.InvalidIntervalException;
 import com.booking.exceptions.OverlapIntervalException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,18 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> overlaptIntervalException(OverlapIntervalException ex, WebRequest request) {
         ErrorOverlapInterval errorOverlapInterval = new ErrorOverlapInterval(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorOverlapInterval, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(InvalidIntervalException.class)
+    public ResponseEntity<?> invalidIntervalException(InvalidIntervalException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BookingConfigEntityNotFoundException.class)
+    public ResponseEntity<?> bookingConfigEntityNotFoundException(BookingConfigEntityNotFoundException ex, WebRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }
 

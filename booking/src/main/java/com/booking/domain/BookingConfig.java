@@ -1,6 +1,9 @@
 package com.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,21 +13,14 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class BookingConfig {
-    private LocalDateTime minDateTime;
-    private LocalDateTime maxDateTime;
-    private Integer minTimeReservation;
-    private Integer maxTimeReservation;
+    @Id
+    @GeneratedValue
+    private Integer id;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime lowerLimitInterval;
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+    private LocalDateTime upperLimitInterval;
+    private Long minTimeReservation; // En minutos
+    private Long maxTimeReservation; // En minutos
 
-    public boolean isValid(
-            LocalDateTime minDateTime,
-            LocalDateTime maxDateTime,
-            Integer minTimeReservation,
-            Integer maxTimeReservation
-            ){
-        return minDateTime.isAfter(this.minDateTime) &&
-                maxDateTime.isBefore(this.maxDateTime) &&
-                minTimeReservation >= this.minTimeReservation &&
-                maxTimeReservation <= this.maxTimeReservation;
-
-    }
 }
