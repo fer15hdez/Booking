@@ -2,10 +2,9 @@ package com.booking.domain;
 
 import java.util.List;
 
-public record EquipmentResponseDTO(
+public record FunctionTypeDTO(
         String name,
         String description,
-        Integer availability,
-        String function
+        List<Equipment> equipment
 ) {
 }

@@ -28,28 +28,20 @@ public class BookingService {
     }
 
     public void createBooking(Booking booking){
-      /*  try {
-            this.intervalConstraint.isValid(booking.getBookingStart(), booking.getBookingEnd());
-        }catch (RuntimeException e){
-            throw new InvalidIntervalException("The interval is no valid");
-        }*/
+
         Errors errors = new DirectFieldBindingResult(booking, "Booking");
-
         this.bookingConstraint.validate(booking, errors);
-
 
         if (errors.hasErrors()){
             List<String> errorList = new ArrayList<>();
             for (ObjectError e: errors.getAllErrors()){
                 errorList.add(e.getCode());
             }
-            System.out.println("\n" + "---ObjectError----");
-            System.out.println(errorList);
 
             throw new InvalidIntervalException(errorList.toString());
         }
 
-        if (this.bookingConstraint.isValid(booking.getBookingStart(), booking.getBookingEnd())){
+        if (!errors.hasErrors()){
             List<Booking> bookings = this.repository.findAll()
                     .stream()
                     .limit(100)

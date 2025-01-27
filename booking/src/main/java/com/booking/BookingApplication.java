@@ -37,7 +37,7 @@ public class BookingApplication {
 		tree.search(root, x);
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner commandLineRunner(
 			FunctionTypeRepository functionTypeRepository,
 			RoomTypeRepository roomTypeRepository,
@@ -87,7 +87,7 @@ public class BookingApplication {
 			}
 
 		};
-	}
+	}*/
 
 
 

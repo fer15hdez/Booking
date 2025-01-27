@@ -1,11 +1,14 @@
 package com.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import java.util.List;
 
@@ -19,6 +22,7 @@ public class RoomType {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotBlank
     private String name;
     private String description;
     @OneToMany(
@@ -33,10 +37,4 @@ public class RoomType {
         this.id = id;
     }
 
- /*   public RoomType(Integer id, String name, String description, List<Room> rooms){
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.rooms = rooms;
-    }*/
 }

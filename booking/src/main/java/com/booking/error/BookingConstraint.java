@@ -43,22 +43,12 @@ public class BookingConstraint implements Validator {
 
         interval(bookingStart, bookingEnd, errors);
         if (bookingConfig.isPresent()){
-            if (this.isUpperMinTimeReservation(bookingStart, bookingEnd)){
+            if (!this.isUpperMinTimeReservation(bookingStart, bookingEnd)){
                 errors.reject( "The minimum reservation time must exceed " + bookingConfig.get().getMinTimeReservation());
             }
         }else {
-            throw new BookingConfigEntityNotFoundException("There are not defined a configuration entity");
+            throw new BookingConfigEntityNotFoundException("There is no defined value for the configuration entity");
         }
-
-
-    }
-
-    public Boolean isValid(LocalDateTime start, LocalDateTime end){
-        if (!this.isUpperMinTimeReservation(start, end)){
-            System.out.println("this.isUpperMinTimeReservation(start, end) false");
-            return  false;
-        }
-        return true;
     }
 
     public void interval(LocalDateTime start, LocalDateTime end, Errors error) {
@@ -72,7 +62,7 @@ public class BookingConstraint implements Validator {
                 error.rejectValue("bookingStart", "The start date must be after " + dateStartConfig.toString());
             }
             if (!start.isBefore(dateEndConfig)) {
-                error.rejectValue("dateStartConfig", "The start date must be before " + dateStartConfig.toString());
+                error.reject("The start date must be before " + dateStartConfig.toString());
             }
             if (!start.isBefore(end)) {
                 error.rejectValue("bookingStart", "The start date must be earlier than the end date");
@@ -92,13 +82,12 @@ public class BookingConstraint implements Validator {
         return bookingConfig.filter(config -> this.convertIntervalToMin(start, end) > config.getMinTimeReservation()).isPresent();
     }
 
-        public Long convertIntervalToMin (LocalDateTime start, LocalDateTime end){
-            Instant startInstant = start.toInstant(ZoneOffset.UTC);
-            Instant endInstant = end.toInstant(ZoneOffset.UTC);
+    public Long convertIntervalToMin (LocalDateTime start, LocalDateTime end){
+        Instant startInstant = start.toInstant(ZoneOffset.UTC);
+        Instant endInstant = end.toInstant(ZoneOffset.UTC);
 
         return Duration.between(startInstant, endInstant).toMinutes();
-        }
-
-
     }
+
+}
 

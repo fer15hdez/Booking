@@ -27,11 +27,16 @@ public class EquipmentMapper {
     }
 
     public EquipmentResponseDTO toEquipmentResponseDTO(Equipment equipment){
+//        String function = "";
+//        if (equipment.getFunction() ==  null){
+//            function = "No function assigned";
+//        }
+//        assert equipment.getFunction() != null;
         return new EquipmentResponseDTO(
                 equipment.getName(),
                 equipment.getDescription(),
                 equipment.getAvailability(),
-                equipment.getFunction()
+                equipment.getFunction().toString()
         );
     }
 }

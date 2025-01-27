@@ -1,0 +1,1 @@
+--insert into function_type (name, description) values (1, 'Trabajo pectorales', 'Ejercicios convinados para pechos');
