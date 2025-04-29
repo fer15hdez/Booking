@@ -1,6 +1,7 @@
 package com.booking.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class Resource {
     @Id
     @GeneratedValue
     private Integer id;
+    @Size(min = 3, max = 20)
     private String name;
+    @Size(max = 100)
     private String description;
     private Integer availability;
     @ManyToMany(mappedBy = "resource")

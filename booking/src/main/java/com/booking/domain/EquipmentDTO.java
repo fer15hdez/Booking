@@ -8,7 +8,7 @@ public record EquipmentDTO(
 
         @Size(min = 3, max = 20)
          String name,
-         @Size(max = 50)
+        @Size(max = 100)
          String description,
          Integer availability,
 

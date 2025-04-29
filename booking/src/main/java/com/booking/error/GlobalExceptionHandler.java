@@ -7,8 +7,10 @@ import com.booking.exceptions.DeleteEntityNotFoundException;
 import com.booking.exceptions.InvalidIntervalException;
 import com.booking.exceptions.OverlapIntervalException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -53,5 +55,30 @@ public class GlobalExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<?> handlerConstraintViolationException(
+            ConstraintViolationException ex, WebRequest request){
+
+        Map<String, String> errors = new HashMap<>();
+
+        ex.getConstraintViolations().forEach(violation -> {
+            String fieldName = violation.getPropertyPath().toString();
+            String message = violation.getMessage();
+            errors.put(fieldName, message);
+        });
+
+
+        // Personaliza el mensaje general si lo deseas
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Error de validación en los datos enviados.");
+        response.put("errors", errors);
+        response.put("timestamp", java.time.LocalDateTime.now());
+        response.put("details", "Verifique los campos con errores.");
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+
 }
 

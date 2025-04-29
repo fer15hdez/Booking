@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -40,8 +41,12 @@ public class EquipmentController {
     }
 
     @PutMapping("/update")
-    public EquipmentResponseDTO updateEquipment(@RequestBody Equipment equipment){
-        return this.service.updateEquipment(equipment);
+    public ResponseEntity<?> updateEquipment(@Valid @RequestBody Equipment equipment, BindingResult result){
+        if (result.hasFieldErrors()){
+            return validation(result);
+        }
+
+        return ResponseEntity.ok().body(this.service.updateEquipment(equipment));
     }
 
     @DeleteMapping("/{id}")
@@ -50,11 +55,12 @@ public class EquipmentController {
         this.service.deleteEquipment(id);
     }
 
-    private ResponseEntity<?> validation(BindingResult result) {
+    private ResponseEntity<Map<String, String>> validation(BindingResult result) {
         Map<String, String> errors = new HashMap<>();
-        result.getFieldErrors().forEach(fieldError -> {
-            errors.put(fieldError.getField(), ": " + fieldError.getDefaultMessage());
-        });
+
+        result.getFieldErrors().forEach(
+                fieldError -> errors.put(fieldError.getField(), ": " + fieldError.getDefaultMessage())
+        );
 
         return ResponseEntity.badRequest().body(errors);
     }
