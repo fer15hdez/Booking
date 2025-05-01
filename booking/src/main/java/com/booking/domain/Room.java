@@ -25,5 +25,9 @@ public class Room extends Resource{
     @JsonBackReference
     private RoomType type;
 
+    Room(Integer id){
+        super(id);
+    }
+
 
 }

@@ -26,4 +26,8 @@ public class Coach extends Resource {
     )
     private List<Area> areas;
 
+    Coach(Integer id){
+        super(id);
+    }
+
 }

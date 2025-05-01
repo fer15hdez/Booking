@@ -16,7 +16,7 @@ import java.util.Objects;
 //@EqualsAndHashCode(callSuper = true)
 @Data
 //@NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @SuperBuilder
 @Entity
 //@Table(name = "T_EQUIPMENT")
@@ -38,6 +38,10 @@ public class Equipment extends Resource{
 
     public Equipment(){
         this.function = new ArrayList<>();
+    }
+
+    public Equipment(Integer id){
+        super(id);
     }
 
     public Equipment(Integer id,
@@ -89,5 +93,37 @@ public class Equipment extends Resource{
     public void removeFunctionType(FunctionType functionType){
         this.function.remove(functionType);
         functionType.getEquipment().remove(this);
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
+    }
+
+    public Integer getLength() {
+        return length;
+    }
+
+    public void setLength(Integer length) {
+        this.length = length;
+    }
+
+    public Integer getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
+    public List<FunctionType> getFunction() {
+        return function;
+    }
+
+    public void setFunction(List<FunctionType> function) {
+        this.function = function;
     }
 }
