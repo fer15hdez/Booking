@@ -27,7 +27,6 @@ public class Equipment extends Resource{
     private Integer length;
     private Integer height;
     @ManyToMany
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "equipment_function",
             joinColumns = { @JoinColumn(name = "equipment_id") },
@@ -42,20 +41,6 @@ public class Equipment extends Resource{
 
     public Equipment(Integer id){
         super(id);
-    }
-
-    public Equipment(Integer id,
-                     String name,
-                     String description,
-                     Integer availability,
-                     List<Booking> bookings,
-                     Integer weight,
-                     Integer length,
-                     Integer height) {
-        super(id, name, description, availability, bookings);
-        this.weight = weight;
-        this.length = length;
-        this.height = height;
     }
 
     @Override
@@ -95,35 +80,4 @@ public class Equipment extends Resource{
         functionType.getEquipment().remove(this);
     }
 
-    public Integer getWeight() {
-        return weight;
-    }
-
-    public void setWeight(Integer weight) {
-        this.weight = weight;
-    }
-
-    public Integer getLength() {
-        return length;
-    }
-
-    public void setLength(Integer length) {
-        this.length = length;
-    }
-
-    public Integer getHeight() {
-        return height;
-    }
-
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    public List<FunctionType> getFunction() {
-        return function;
-    }
-
-    public void setFunction(List<FunctionType> function) {
-        this.function = function;
-    }
 }

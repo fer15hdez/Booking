@@ -9,11 +9,10 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
-//@Entity
 //@Table(name = "T_RESOURCE")
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @SuperBuilder
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -30,18 +29,8 @@ public class Resource {
     @ManyToMany(mappedBy = "resource")
     private List<Booking> bookings;
 
-    public Resource(){}
-
     public Resource(Integer id){
         this.id = id;
-    }
-
-    public Resource(Integer id, String name, String description, Integer availability, List<Booking> bookings) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.availability = availability;
-        this.bookings = bookings;
     }
 
 }
