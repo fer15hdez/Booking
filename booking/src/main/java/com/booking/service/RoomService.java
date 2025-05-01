@@ -44,7 +44,7 @@ public class RoomService {
     public void deleteRoom(Integer id){
         this.repository.findById(id)
                 .orElseThrow(
-                        () -> new DeleteEntityNotFoundException("Entity not found with id: " + id)
+                        () -> new EntityNotFoundException("Entity not found with id: " + id)
                 );
         this.repository.deleteById(id);
     }
