@@ -29,6 +29,24 @@ public class EquipmentService {
     public EquipmentResponseDTO createEquipment(EquipmentDTO equipmentDTO){
         Equipment equipment = this.mapper.toEquipment(equipmentDTO);
 
+        List<Integer> functionTypesIds = new ArrayList<>();
+        equipment.getFunction().forEach(functionType -> {
+            System.out.println("functionType: " + functionType);
+            functionTypesIds.add(functionType.getId());
+        });
+
+        if (!functionTypesIds.isEmpty()){
+            for (Integer id : functionTypesIds) {
+                this.functionTypeRepository.findById(id).orElseThrow(
+                        () -> {
+                            logger.info("No found functionType entity with id: " + id);
+                            return new EntityNotFoundException("No found FunctionType");
+
+                        }
+                );
+            }
+        }
+
         return this.mapper.toEquipmentResponseDTO(this.repository.save(equipment));
     }
 

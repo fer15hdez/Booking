@@ -1,14 +1,12 @@
 package com.booking.domain;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.NonNull;
 
 import java.util.List;
 
