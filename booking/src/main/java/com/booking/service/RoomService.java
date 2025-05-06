@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -18,6 +19,8 @@ public class RoomService {
 
     private final RoomRepository repository;
     private final RoomMapper mapper;
+    Logger logger = Logger.getLogger(getClass().getName());
+
 
     public RoomService(RoomRepository repository, RoomMapper mapper) {
         this.repository = repository;
@@ -27,10 +30,23 @@ public class RoomService {
     public RoomResponseDTO createRoom(RoomDTO roomDTO){
         Room room = this.mapper.toRoom(roomDTO);
 
+        this.repository.findById(room.getId()).orElseThrow(
+                () -> {
+                    logger.info("No found Room entity with id: " + room.getId());
+                    return new EntityNotFoundException("No found Room entity with given id");
+                }
+        );
+
         return this.mapper.toRoomResponseDTO(this.repository.save(room));
     }
 
     public RoomResponseDTO updateRoom(Room room){
+        this.repository.findById(room.getId()).orElseThrow(
+                () -> {
+                    logger.info("No found Room entity with id: " + room.getId());
+                    return new EntityNotFoundException("No found Room entity with given id");
+                }
+        );
         return  this.mapper.toRoomResponseDTO(this.repository.save(room));
     }
 
