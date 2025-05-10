@@ -3,6 +3,7 @@ package com.booking.controller;
 import com.booking.domain.Coach;
 import com.booking.domain.CoachDTO;
 import com.booking.domain.CoachResponseDTO;
+import com.booking.domain.CoachUpdateDTO;
 import com.booking.service.CoachService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,8 @@ public class CoachController {
     }
 
     @PutMapping("/update")
-    public CoachResponseDTO updateCoach(@RequestBody CoachDTO coachDTO){
-        return this.service.updateCoach(coachDTO);
+    public CoachResponseDTO updateCoach(@RequestBody CoachUpdateDTO coachUpdateDTO){
+        return this.service.updateCoach(coachUpdateDTO);
     }
 
     @DeleteMapping("/{id}")

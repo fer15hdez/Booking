@@ -1,9 +1,6 @@
 package com.booking.service;
 
-import com.booking.domain.Coach;
-import com.booking.domain.CoachDTO;
-import com.booking.domain.CoachRepository;
-import com.booking.domain.CoachResponseDTO;
+import com.booking.domain.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +13,18 @@ public class CoachMapper {
         coach.setName(coachDTO.name());
         coach.setDescription(coachDTO.description());
         coach.setAvailability(coachDTO.availability());
+
+        return coach;
+    }
+
+    public Coach toCoachUpdate(CoachUpdateDTO coachUpdateDTO){
+        Coach coach = new Coach();
+
+        coach.setId(coachUpdateDTO.getId());
+        coach.setName(coachUpdateDTO.getName());
+        coach.setDescription(coachUpdateDTO.getDescription());
+        coach.setAvailability(coachUpdateDTO.getAvailability());
+        coach.setAreas(coachUpdateDTO.getAreas());
 
         return coach;
     }
