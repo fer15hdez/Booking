@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @Service
 public class CoachService {
 
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(CoachService.class);
     Logger logger = Logger.getLogger(getClass().getName());
     private final CoachRepository repository;
     private final CoachMapper mapper;
@@ -36,17 +35,13 @@ public class CoachService {
 
     public CoachResponseDTO createCoach(CoachDTO coachDTO){
 
-        if (logger.isLoggable(Level.INFO)){
-            logger.info("Lista de areas: " + coachDTO.areas().toString());
-        }
-
-        if (!coachDTO.areas().isEmpty()){
+        if (coachDTO.areas() != null && !coachDTO.areas().isEmpty()){
             List<Area> areaList = new ArrayList<>(coachDTO.areas());
 
             for (Area area: areaList){
                 this.areaRepository.findById(area.getId()).orElseThrow(
                         () -> {
-                            logger.info("No found entity Area with id: " + area.getId());
+                            logger.info("Entity Area not found  with id: " + area.getId());
                             return new EntityNotFoundException("Entity Area no found");
                         }
                 );
@@ -62,8 +57,8 @@ public class CoachService {
     public CoachResponseDTO updateCoach(CoachUpdateDTO coachUpdateDTO){
         this.repository.findById(coachUpdateDTO.getId()).orElseThrow(
                 () -> {
-                    logger.info("No found entity Coach with id: " + coachUpdateDTO.getId());
-                    return new EntityNotFoundException("No found entity");
+                    logger.info("Entity Coach not found  with id: " + coachUpdateDTO.getId());
+                    return new EntityNotFoundException("Entity not found");
                 }
         );
         Optional<Coach> coachOptional = this.repository.findById(coachUpdateDTO.getId());
@@ -87,6 +82,12 @@ public class CoachService {
     }
 
     public void deleteCoach(Integer id){
+        this.repository.findById(id).orElseThrow(
+                () -> {
+                    logger.info("No found entity Coach with id: " + id);
+                    return new EntityNotFoundException("Entity not found");
+                }
+        );
         this.repository.deleteById(id);
     }
 

@@ -1,6 +1,7 @@
 package com.booking.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +18,7 @@ public class Area {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
     @Size(min = 3, max = 20)
     private String name;
     @Size(max = 500)
