@@ -4,11 +4,18 @@ import com.booking.domain.Room;
 import com.booking.domain.RoomDTO;
 import com.booking.domain.RoomResponseDTO;
 import com.booking.service.RoomService;
+import jakarta.validation.Valid;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/rooms")
@@ -21,8 +28,17 @@ public class RoomController {
     }
 
     @PostMapping
-    public RoomResponseDTO createRoom(@RequestBody RoomDTO roomDTO){
-        return this.service.createRoom(roomDTO);
+    public ResponseEntity<?> createRoom(@Valid @RequestBody RoomDTO roomDTO, BindingResult bindingResult){
+
+        Map<String, String> errors = new HashMap<>();
+        if (bindingResult.hasErrors()){
+            for (FieldError error: bindingResult.getFieldErrors()){
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        return ResponseEntity.ok().body(this.service.createRoom(roomDTO));
     }
 
     @PutMapping

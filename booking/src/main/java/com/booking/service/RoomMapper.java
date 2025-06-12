@@ -15,12 +15,16 @@ public class RoomMapper {
         }
 
         RoomType roomType = new RoomType();
-        roomType.setId(roomDTO.type());
-
         Room room = new Room();
+        if (roomDTO.type() != null){
+            roomType.setId(roomDTO.type());
+            room.setType(roomType);
+        }
+
+
 
         room.setLength(roomDTO.length());
-        room.setType(roomType);
+
         room.setWidth(roomDTO.width());
 
         room.setName(roomDTO.name());
