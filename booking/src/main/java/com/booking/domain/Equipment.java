@@ -15,9 +15,9 @@ import java.util.Objects;
 
 //@EqualsAndHashCode(callSuper = true)
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
 @SuperBuilder
+//@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 //@Table(name = "T_EQUIPMENT")
 @PrimaryKeyJoinColumn(name = "resource_id")

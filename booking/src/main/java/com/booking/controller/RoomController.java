@@ -41,9 +41,17 @@ public class RoomController {
         return ResponseEntity.ok().body(this.service.createRoom(roomDTO));
     }
 
-    @PutMapping
-    public RoomResponseDTO updateRoom(@RequestBody Room room){
-        return this.service.updateRoom(room);
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateRoom(@PathVariable Integer id ,@Valid @RequestBody RoomDTO roomDTO, BindingResult bindingResult){
+        Map<String, String> errors = new HashMap<>();
+        if (bindingResult.hasErrors()){
+            for (FieldError error: bindingResult.getFieldErrors()){
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        return ResponseEntity.ok().body(this.service.updateRoom(roomDTO, id));
     }
 
     @GetMapping

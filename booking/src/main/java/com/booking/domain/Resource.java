@@ -2,6 +2,7 @@ package com.booking.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,9 @@ import java.util.List;
 
 //@Table(name = "T_RESOURCE")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @SuperBuilder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 //@SuperBuilder(toBuilder = true)

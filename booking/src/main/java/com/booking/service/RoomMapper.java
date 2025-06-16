@@ -20,9 +20,6 @@ public class RoomMapper {
             roomType.setId(roomDTO.type());
             room.setType(roomType);
         }
-
-
-
         room.setLength(roomDTO.length());
 
         room.setWidth(roomDTO.width());
@@ -32,7 +29,6 @@ public class RoomMapper {
         room.setAvailability(roomDTO.availability());
 
         return room;
-
     }
 
     public RoomResponseDTO toRoomResponseDTO(Room room){
