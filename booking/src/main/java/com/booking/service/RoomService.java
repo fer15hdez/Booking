@@ -52,7 +52,7 @@ public class RoomService {
         return this.repository.findAll()
                 .stream()
                 .map(mapper::toRoomResponseDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void deleteRoom(Integer id){

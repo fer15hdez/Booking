@@ -42,7 +42,7 @@ public class RoomController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> updateRoom(@PathVariable Integer id ,@Valid @RequestBody RoomDTO roomDTO, BindingResult bindingResult){
+    public ResponseEntity<?> updateRoom(@PathVariable Integer id, @Valid @RequestBody RoomDTO roomDTO, BindingResult bindingResult){
         Map<String, String> errors = new HashMap<>();
         if (bindingResult.hasErrors()){
             for (FieldError error: bindingResult.getFieldErrors()){

@@ -6,6 +6,6 @@ public record RoomResponseDTO(
 
         Integer width,
         Integer length,
-        RoomType type
+        RoomTypeResponseDTO type
 ) {
 }
