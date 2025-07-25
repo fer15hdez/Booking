@@ -36,12 +36,18 @@ public class RoomMapper {
     }
 
     public RoomResponseDTO toRoomResponseDTO(Room room){
-        Integer roomTypeId = room.getType().getId();
-        RoomType roomType = roomTypeRepository.findById(roomTypeId)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Entity not found with id: " + roomTypeId)
-                );
-        RoomTypeResponseDTO roomTypeResponseDTO = new RoomTypeResponseDTO(roomType.getName(), roomType.getDescription());
+
+        RoomTypeResponseDTO roomTypeResponseDTO = null;
+        if (room.getType() != null){
+            Integer roomTypeId = room.getType().getId();
+            RoomType roomType = roomTypeRepository.findById(roomTypeId)
+                    .orElseThrow(
+                            () -> new EntityNotFoundException("Entity not found with id: " + roomTypeId)
+                    );
+            roomTypeResponseDTO = new RoomTypeResponseDTO(roomType.getName(), roomType.getDescription());
+        }
+
+
 
         return new RoomResponseDTO(
                 room.getName(),

@@ -3,6 +3,9 @@ package com.booking.service;
 import com.booking.domain.*;
 import com.booking.exceptions.DeleteEntityNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +20,11 @@ public class RoomService {
     private final RoomMapper mapper;
     private final RoomMapperStruct roomMapperStruct;
 
-    public RoomService(RoomRepository repository, RoomTypeRepository roomTypeRepository, RoomMapper mapper, RoomMapperStruct roomMapperStruct) {
+    public RoomService(
+            RoomRepository repository,
+            RoomTypeRepository roomTypeRepository,
+            RoomMapper mapper,
+            RoomMapperStruct roomMapperStruct) {
         this.repository = repository;
         this.roomTypeRepository = roomTypeRepository;
         this.mapper = mapper;
@@ -48,11 +55,17 @@ public class RoomService {
         return  this.mapper.toRoomResponseDTO(this.repository.save(roomDB));
     }
 
-    public List<RoomResponseDTO> listRoom(){
-        return this.repository.findAll()
+    public Page<RoomResponseDTO> listRoom(Pageable pageable){
+
+
+        List<RoomResponseDTO> responseDTOList = this.repository.findAll(pageable)
                 .stream()
                 .map(mapper::toRoomResponseDTO)
-                .toList();
+                .collect(Collectors.toList());
+
+//        System.out.println("responseDTOList.size(): " + responseDTOList.size());
+
+        return new PageImpl<>(responseDTOList, pageable, responseDTOList.size());
     }
 
     public void deleteRoom(Integer id){

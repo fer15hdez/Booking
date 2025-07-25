@@ -6,6 +6,8 @@ import com.booking.domain.RoomResponseDTO;
 import com.booking.service.RoomService;
 import jakarta.validation.Valid;
 import jdk.dynalink.linker.LinkerServices;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -55,8 +57,17 @@ public class RoomController {
     }
 
     @GetMapping
-    public List<RoomResponseDTO> listRoom(){
-        return this.service.listRoom();
+    public ResponseEntity<Page<RoomResponseDTO>> listRoom(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size
+            ){
+        if (size > 100){
+            size = 50;
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        Page<RoomResponseDTO> listRoom= this.service.listRoom(pageRequest);
+        return ResponseEntity.ok().body(listRoom);
     }
 
     @DeleteMapping("/{id}")

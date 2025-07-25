@@ -37,13 +37,14 @@ public class BookingApplication {
 		tree.search(root, x);
 	}
 
-	/*@Bean
+	@Bean
 	public CommandLineRunner commandLineRunner(
 			FunctionTypeRepository functionTypeRepository,
 			RoomTypeRepository roomTypeRepository,
 			BookingRepository bookingRepository,
 			CustomerRepository customerRepository,
-			ResourceRepositoy resourceRepositoy
+			ResourceRepositoy resourceRepositoy,
+			RoomRepository roomRepository
 			){
 
 		return args -> {
@@ -64,30 +65,38 @@ public class BookingApplication {
 
 				roomTypeRepository.save(roomType);
 			}
+//
+//			customerRepository.save(new Customer(1));
+//			resourceRepositoy.save(new Resource(1));
 
-			customerRepository.save(new Customer(1));
-			resourceRepositoy.save(new Resource(1));
-			for (int i = 0; i < 200; i++){
-				int dayStart = 1;
-				int dayEnd = 2;
-				if (i < 30){
-					dayStart = dayStart + i;
-					dayEnd = dayEnd + i + 2;
-				}
 
-				var booking = Booking.builder()
-						.name("name " + 1)
-						.resource(List.of(new Resource(1)) )
-						.customers(List.of(new Customer(1)))
-						.bookingStart(LocalDateTime.of(2024, 11, 2, 10, 30, 0))
-						.bookingEnd(LocalDateTime.of(2024, 11, 4, 10, 30, 0))
-						.build();
-				bookingRepository.save(booking);
-
+			for (int i = 0; i < 50; i++) {
+            /*RoomType roomType = RoomType.builder()
+                    .name("Tipo de Cuarto " + i)
+                    .build();*/
+				RoomType roomType = new RoomType();
+				roomType.setName("Tipo de Cuarto " + i);
+				roomTypeRepository.save(roomType);
 			}
 
+			int j = 1;
+			for (int i = 1; i < 100; i++) {
+				Room room = Room.builder()
+						.name("Cuarto " + i)
+						.width(50 + i)
+						.length(60 + i)
+						.type(new RoomType(j))
+						.build();
+
+				if (i < 49)
+					j++;
+
+				roomRepository.save(room);
+			}
+
+
 		};
-	}*/
+	}
 
 
 
