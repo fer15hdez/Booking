@@ -71,7 +71,7 @@ public class RoomController {
     }
 
     @DeleteMapping("/{id}")
-//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteRoom(@PathVariable("id") Integer id){
         this.service.deleteRoom(id);
     }
