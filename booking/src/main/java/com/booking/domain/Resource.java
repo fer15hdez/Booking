@@ -1,6 +1,7 @@
 package com.booking.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class Resource {
     @Id
     @GeneratedValue
     private Integer id;
+    @NotNull
     @Size(min = 3, max = 20)
     private String name;
     @Size(max = 100)

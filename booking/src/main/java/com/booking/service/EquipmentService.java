@@ -2,12 +2,8 @@ package com.booking.service;
 
 import com.booking.domain.*;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -28,6 +24,19 @@ public class EquipmentService {
 
     public EquipmentResponseDTO createEquipment(EquipmentDTO equipmentDTO){
         Equipment equipment = this.mapper.toEquipment(equipmentDTO);
+
+        List<FunctionType> functionTypes = equipment.getFunction();
+
+        if(functionTypes != null && !functionTypes.isEmpty()){
+            for (FunctionType functionType : functionTypes) {
+                this.functionTypeRepository.findById(functionType.getId()).orElseThrow(
+                        () -> {
+                            logger.info("No found functionType entity with id: " + functionType.getId());
+                            return new EntityNotFoundException("No found FunctionType with given id");
+                        }
+                );
+            }
+        }
 
         return this.mapper.toEquipmentResponseDTO(this.repository.save(equipment));
     }

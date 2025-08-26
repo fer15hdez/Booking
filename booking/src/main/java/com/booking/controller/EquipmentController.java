@@ -5,12 +5,9 @@ import com.booking.domain.EquipmentDTO;
 import com.booking.domain.EquipmentResponseDTO;
 import com.booking.service.EquipmentService;
 import jakarta.validation.Valid;
-import org.apache.catalina.LifecycleState;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
