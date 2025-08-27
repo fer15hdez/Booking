@@ -48,13 +48,13 @@ public class BookingApplication {
 			){
 
 		return args -> {
-			for (int i = 0; i < 10; i++){
+		/*	for (int i = 0; i < 10; i++){
 				var functionType = FunctionType.builder()
 						.name("Trabajo de espalda: " +  i)
 						.description("Trabaja los musculos bajos")
 						.build();
 				functionTypeRepository.save(functionType);
-			}
+			}*/
 
 
 			for (int i = 0; i < 10; i++){
