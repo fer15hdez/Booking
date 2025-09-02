@@ -20,9 +20,11 @@ import org.springframework.web.context.request.WebRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    Logger logger = Logger.getLogger(getClass().getName());
 
     @ExceptionHandler(EntityNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -31,37 +33,48 @@ public class GlobalExceptionHandler {
         Map<String, String> errorResponse = new HashMap<>();
         errorResponse.put("message", ex.getMessage());
 
+        logger.info("EntityNotFoundException: " + ex.getMessage());
+
         return errorResponse;
     }
 
     @ExceptionHandler(DeleteEntityNotFoundException.class)
     public ResponseEntity<?> handleUserNotFoundException(DeleteEntityNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+        logger.info("DeleteEntityNotFoundException: " + ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(OverlapIntervalException.class)
     public ResponseEntity<?> overlaptIntervalException(OverlapIntervalException ex, WebRequest request) {
-        ErrorOverlapInterval errorOverlapInterval = new ErrorOverlapInterval(new Date(), ex.getMessage(), request.getDescription(false));
+        ErrorOverlapInterval errorOverlapInterval = new ErrorOverlapInterval(
+                new Date(), ex.getMessage(),
+                request.getDescription(false));
+
+        logger.info("OverlapIntervalException: " + ex.getMessage());
         return new ResponseEntity<>(errorOverlapInterval, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(InvalidIntervalException.class)
     public ResponseEntity<?> invalidIntervalException(InvalidIntervalException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+        logger.info("InvalidIntervalException: " + ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(BookingConfigEntityNotFoundException.class)
     public ResponseEntity<?> bookingConfigEntityNotFoundException(BookingConfigEntityNotFoundException ex, WebRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+        logger.info("BookingConfigEntityNotFoundException: " + ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<?> handlerConstraintViolationException(
             ConstraintViolationException ex, WebRequest request){
-
         Map<String, String> errors = new HashMap<>();
 
         ex.getConstraintViolations().forEach(violation -> {
@@ -76,12 +89,15 @@ public class GlobalExceptionHandler {
         response.put("timestamp", java.time.LocalDateTime.now());
         response.put("details", "Verifique los campos con errores.");
 
+        logger.info("ConstraintViolationException: " + ex.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<?> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(), request.getDescription(false));
+
+        logger.info("IllegalArgumentException: " + ex.getMessage());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 }

@@ -78,6 +78,8 @@ public class CoachService {
 
         Coach coach = mapper.toCoachUpdate(coachUpdateDTO);
 
+        logger.info("coachUpdateDTO: " + coachUpdateDTO);
+
         return this.mapper.toCoachResponseDTO(this.repository.save(coach));
     }
 

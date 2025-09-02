@@ -40,8 +40,11 @@ public class CoachController {
     }
 
     @PutMapping("/update")
-    public CoachResponseDTO updateCoach(@RequestBody CoachUpdateDTO coachUpdateDTO){
-        return this.service.updateCoach(coachUpdateDTO);
+    public ResponseEntity<?> updateCoach(@Valid @RequestBody CoachUpdateDTO coachUpdateDTO, BindingResult result){
+        if (result.hasErrors()){
+            return validation(result);
+        }
+        return ResponseEntity.ok().body(this.service.updateCoach(coachUpdateDTO));
     }
 
     @DeleteMapping("/{id}")
