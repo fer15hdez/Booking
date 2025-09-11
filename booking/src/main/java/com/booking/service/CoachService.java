@@ -2,12 +2,12 @@ package com.booking.service;
 
 import com.booking.domain.*;
 import jakarta.persistence.EntityNotFoundException;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -54,31 +54,40 @@ public class CoachService {
 
     }
 
-    public CoachResponseDTO updateCoach(CoachUpdateDTO coachUpdateDTO){
-        this.repository.findById(coachUpdateDTO.getId()).orElseThrow(
+    public CoachResponseDTO updateCoach(CoachUpdateDTO coachUpdateDTO) {
+        Coach coach = this.repository.findById(coachUpdateDTO.getId()).orElseThrow(
                 () -> {
                     logger.info("Entity Coach not found  with id: " + coachUpdateDTO.getId());
                     return new EntityNotFoundException("Entity not found");
                 }
         );
-        Optional<Coach> coachOptional = this.repository.findById(coachUpdateDTO.getId());
 
-        if (coachUpdateDTO.getName() == null){
-            coachOptional.ifPresent(value -> coachUpdateDTO.setName(value.getName()));
+        // orElseThrow: Se encarga de desempaquetar el optional que devuelve findById y devuelve la entidad
+
+        if (coachUpdateDTO.getName() != null) {
+            coach.setName(coachUpdateDTO.getName());
         }
-        if (coachUpdateDTO.getDescription() == null){
-            coachOptional.ifPresent(value -> coachUpdateDTO.setDescription(value.getDescription()));
+        if (coachUpdateDTO.getDescription() != null) {
+            coach.setDescription(coachUpdateDTO.getDescription());
         }
-        if (coachUpdateDTO.getAvailability() == null){
-            coachOptional.ifPresent(value -> coachUpdateDTO.setAvailability(value.getAvailability()));
-        }
-        if (coachUpdateDTO.getAreas() == null){
-            coachOptional.ifPresent(value -> coachUpdateDTO.setAreas(value.getAreas()));
+        if (coachUpdateDTO.getAvailability() != null) {
+            coach.setAvailability(coachUpdateDTO.getAvailability());
         }
 
-        Coach coach = mapper.toCoachUpdate(coachUpdateDTO);
+        if (coachUpdateDTO.getAreas() != null) {
+            List<Area> areaList = coachUpdateDTO.getAreas().stream()
+                    .map(areaId -> areaRepository.findById(areaId)
+                            .orElseThrow(() -> {
+                                logger.log(Level.INFO, "Area not found with ID: {0}", areaId);
+                                return new EntityNotFoundException("Area not found with ID: " + areaId);
+                            })
+                    ).collect(Collectors.toCollection(ArrayList::new));
+            coach.setAreas(areaList); // Si la lista que se le pasa para actualizar es inmutable hibernate lanza un
+            // un excepcion de unsuportedOperation
 
-        logger.info("coachUpdateDTO: " + coachUpdateDTO);
+        }
+
+        logger.log(Level.INFO, "Coach to update: {0}", coach);
 
         return this.mapper.toCoachResponseDTO(this.repository.save(coach));
     }

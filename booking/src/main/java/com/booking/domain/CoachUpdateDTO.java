@@ -20,5 +20,5 @@ public class CoachUpdateDTO {
     private String description;
     private Integer availability;
     private List<Booking> bookings;
-    List<Area> areas;
+    List<Integer> areas;
 }

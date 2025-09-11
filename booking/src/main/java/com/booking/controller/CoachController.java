@@ -1,6 +1,5 @@
 package com.booking.controller;
 
-import com.booking.domain.Coach;
 import com.booking.domain.CoachDTO;
 import com.booking.domain.CoachResponseDTO;
 import com.booking.domain.CoachUpdateDTO;
@@ -39,7 +38,7 @@ public class CoachController {
         return ResponseEntity.ok().body(this.service.createCoach(coachDTO));
     }
 
-    @PutMapping("/update")
+    @PatchMapping("/update")
     public ResponseEntity<?> updateCoach(@Valid @RequestBody CoachUpdateDTO coachUpdateDTO, BindingResult result){
         if (result.hasErrors()){
             return validation(result);

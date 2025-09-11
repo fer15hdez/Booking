@@ -1,10 +1,9 @@
 package com.booking.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @SuperBuilder
 @Entity
+@ToString(callSuper = true)
 //@Table(name = "T_COACH")
 @PrimaryKeyJoinColumn(name = "resource_id")
 public class Coach extends Resource {
@@ -24,6 +24,8 @@ public class Coach extends Resource {
             joinColumns = { @JoinColumn(name = "area_id") },
             inverseJoinColumns = { @JoinColumn(name = "coach_id") }
     )
+    @JsonBackReference
+    @ToString.Exclude
     private List<Area> areas;
 
     Coach(Integer id){

@@ -44,7 +44,9 @@ public class BookingApplication {
 			BookingRepository bookingRepository,
 			CustomerRepository customerRepository,
 			ResourceRepositoy resourceRepositoy,
-			RoomRepository roomRepository
+			RoomRepository roomRepository,
+			CoachRepository coachRepository,
+			AreaRepository areaRepository
 			){
 
 		return args -> {
@@ -55,6 +57,20 @@ public class BookingApplication {
 						.build();
 				functionTypeRepository.save(functionType);
 			}*/
+
+			var coach = Coach.builder()
+					.name("Fernando")
+					.description("Entrenado de baseball")
+					.availability(10)
+					.build();
+			coachRepository.save(coach);
+
+			var area = Area.builder()
+					.name("Area de masaje")
+					.description("Cuarto de vapor")
+					.build();
+			areaRepository.save(area);
+
 
 
 			for (int i = 0; i < 10; i++){

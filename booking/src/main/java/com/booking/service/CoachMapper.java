@@ -3,6 +3,8 @@ package com.booking.service;
 import com.booking.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CoachMapper {
 
@@ -17,14 +19,14 @@ public class CoachMapper {
         return coach;
     }
 
-    public Coach toCoachUpdate(CoachUpdateDTO coachUpdateDTO){
+    public Coach toCoachUpdate(CoachUpdateDTO coachUpdateDTO, List<Area> areaList){
         Coach coach = new Coach();
 
         coach.setId(coachUpdateDTO.getId());
         coach.setName(coachUpdateDTO.getName());
         coach.setDescription(coachUpdateDTO.getDescription());
         coach.setAvailability(coachUpdateDTO.getAvailability());
-        coach.setAreas(coachUpdateDTO.getAreas());
+        coach.setAreas(areaList);
 
         return coach;
     }
