@@ -50,20 +50,15 @@ public class BookingApplication {
 			){
 
 		return args -> {
-		/*	for (int i = 0; i < 10; i++){
-				var functionType = FunctionType.builder()
-						.name("Trabajo de espalda: " +  i)
-						.description("Trabaja los musculos bajos")
+			for (int i = 0; i < 10; i++){
+				var coach = Coach.builder()
+						.name("Fernando" + i)
+						.description("Entrenado de baseball")
+						.availability(10)
 						.build();
-				functionTypeRepository.save(functionType);
-			}*/
+				coachRepository.save(coach);
+			}
 
-			var coach = Coach.builder()
-					.name("Fernando")
-					.description("Entrenado de baseball")
-					.availability(10)
-					.build();
-			coachRepository.save(coach);
 
 			var area = Area.builder()
 					.name("Area de masaje")

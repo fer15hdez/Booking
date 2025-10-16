@@ -56,14 +56,10 @@ public class RoomService {
     }
 
     public Page<RoomResponseDTO> listRoom(Pageable pageable){
-
-
         List<RoomResponseDTO> responseDTOList = this.repository.findAll(pageable)
                 .stream()
                 .map(mapper::toRoomResponseDTO)
                 .collect(Collectors.toList());
-
-//        System.out.println("responseDTOList.size(): " + responseDTOList.size());
 
         return new PageImpl<>(responseDTOList, pageable, responseDTOList.size());
     }

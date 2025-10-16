@@ -2,12 +2,17 @@ package com.booking.service;
 
 import com.booking.domain.*;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -26,11 +31,15 @@ public class CoachService {
         this.areaRepository = areaRepository;
     }
 
-    public List<CoachResponseDTO> allCoaches(){
-        return this.repository.findAll()
+    @Transactional(readOnly = true)
+    public Page<CoachResponseDTO> allCoaches(Pageable pageable){
+        Page<Coach> coachPage = this.repository.findAll(pageable);
+        List<CoachResponseDTO> responseDTOList = coachPage
                 .stream()
                 .map(mapper::toCoachResponseDTO)
-                .collect(Collectors.toList());
+                .toList();
+
+        return new PageImpl<>(responseDTOList,pageable, responseDTOList.size());
     }
 
     public CoachResponseDTO createCoach(CoachDTO coachDTO){

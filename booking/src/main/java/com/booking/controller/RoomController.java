@@ -58,7 +58,7 @@ public class RoomController {
 
     @GetMapping
     public ResponseEntity<Page<RoomResponseDTO>> listRoom(
-            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ){
         if (size > 100){

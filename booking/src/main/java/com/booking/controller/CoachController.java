@@ -5,6 +5,8 @@ import com.booking.domain.CoachResponseDTO;
 import com.booking.domain.CoachUpdateDTO;
 import com.booking.service.CoachService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -25,8 +27,16 @@ public class CoachController {
 
 
     @GetMapping
-    public List<CoachResponseDTO> coaches(){
-        return this.service.allCoaches();
+    public ResponseEntity<Page<CoachResponseDTO>> listCoaches(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size
+    ){
+        if (size > 100){
+            size = 50;
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return ResponseEntity.ok().body(this.service.allCoaches(pageRequest));
     }
 
     @PostMapping
